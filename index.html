@@ -1,8 +1,488 @@
 <!DOCTYPE html>
-<html>
-<head><title>ZAF Development Studio</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZAF Development Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #06060f;
+      --surface:   #0d0d1f;
+      --border:    #1a1a3a;
+      --cyan:      #00e5ff;
+      --purple:    #bf00ff;
+      --magenta:   #ff00aa;
+      --text:      #e8e8f0;
+      --muted:     #7070a0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Ambient grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      z-index: 1;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(191,0,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .logo-wrap {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 40px rgba(0,229,255,0.3), 0 0 80px rgba(191,0,255,0.15);
+      margin-bottom: 32px;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 40px rgba(0,229,255,0.3), 0 0 80px rgba(191,0,255,0.15); }
+      50%       { box-shadow: 0 0 60px rgba(0,229,255,0.5), 0 0 120px rgba(191,0,255,0.25); }
+    }
+
+    .logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .studio-name {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, var(--cyan), var(--purple), var(--magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+
+    .hero-tagline span {
+      color: var(--cyan);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(var(--cyan), transparent);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 100px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      margin-bottom: 32px;
+    }
+
+    /* ── ABOUT ── */
+    .about-text {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.8;
+    }
+
+    .about-text strong {
+      color: var(--text);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 32px;
+    }
+
+    .tag {
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--muted);
+      background: var(--surface);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .tag:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* ── GAMES ── */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .game-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .game-card:hover {
+      border-color: rgba(0,229,255,0.3);
+      transform: translateY(-4px);
+    }
+
+    .game-card:hover::before {
+      opacity: 1;
+    }
+
+    .game-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .game-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .game-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .badge-live {
+      background: rgba(0,229,255,0.1);
+      border: 1px solid rgba(0,229,255,0.3);
+      color: var(--cyan);
+    }
+
+    .badge-soon {
+      background: rgba(191,0,255,0.1);
+      border: 1px solid rgba(191,0,255,0.3);
+      color: var(--purple);
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.2; }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #000;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    /* ── COMING SOON CARD ── */
+    .game-card.coming-soon {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .game-card.coming-soon:hover {
+      transform: none;
+      border-color: var(--border);
+    }
+
+    .game-card.coming-soon::before {
+      opacity: 0;
+    }
+
+    /* ── CONTACT ── */
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px;
+      text-align: center;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin-bottom: 28px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border: 1px solid rgba(0,229,255,0.3);
+      border-radius: 8px;
+      color: var(--cyan);
+      text-decoration: none;
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .contact-email:hover {
+      background: rgba(0,229,255,0.08);
+      border-color: var(--cyan);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer span {
+      color: var(--cyan);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      section { padding: 60px 20px; }
+      .contact-box { padding: 32px 24px; }
+    }
+  </style>
+</head>
 <body>
-<h1>ZAF Development Studio</h1>
-<p>Mobile game development studio.</p>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="logo-wrap">
+      <img src="logo.png" alt="ZAF Development Studio" />
+    </div>
+    <h1 class="studio-name">ZAF Development Studio</h1>
+    <p class="hero-tagline">
+      Solo indie developer from the Netherlands.<br/>
+      Building <span>small games</span> with big passion.
+    </p>
+    <div class="scroll-hint">scroll</div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Who is ZAF?</h2>
+    <div class="divider"></div>
+    <p class="about-text">
+      I'm a <strong>solo developer from the Netherlands</strong> building mobile games on the side while learning and experimenting with new technologies. I work under the name <strong>ZAF Development Studio</strong> — no big team, no investors, just passion and a lot of trial and error.<br/><br/>
+      My goal is simple: make small, fun games that people enjoy during a bus ride or a few minutes of downtime. Nothing overly complex — just solid mechanics, clean design, and honest fun.
+    </p>
+    <div class="tags">
+      <span class="tag">Flutter / Dart</span>
+      <span class="tag">Flame Engine</span>
+      <span class="tag">Mobile Games</span>
+      <span class="tag">Android</span>
+      <span class="tag">Solo Dev</span>
+      <span class="tag">Netherlands 🇳🇱</span>
+    </div>
+  </section>
+
+  <!-- GAMES -->
+  <section id="games">
+    <p class="section-label">Games</p>
+    <h2 class="section-title">What I've Built</h2>
+    <div class="divider"></div>
+    <div class="games-grid">
+
+      <div class="game-card">
+        <span class="game-icon">⛵</span>
+        <h3 class="game-title">Buoy Oh Buoy</h3>
+        <p class="game-desc">
+          A casual one-thumb sailing game. Sling your sailboat around buoys, survive the narrowing river, and see how far you can go. Features a dynamic day/night cycle and storm effects.
+        </p>
+        <span class="badge badge-live">
+          <span class="badge-dot"></span>
+          Now in Testing
+        </span>
+        <br/>
+        <a class="btn" href="https://play.google.com/apps/testing/com.zaf.buoyohbuoy" target="_blank">
+          ▶ Play on Android
+        </a>
+      </div>
+
+      <div class="game-card coming-soon">
+        <span class="game-icon">🎮</span>
+        <h3 class="game-title">Next Project</h3>
+        <p class="game-desc">
+          Something new is in the works. More details soon.
+        </p>
+        <span class="badge badge-soon">
+          <span class="badge-dot"></span>
+          Coming Soon
+        </span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="divider"></div>
+    <div class="contact-box">
+      <p>Have feedback on a game, a question, or just want to say hi? Feel free to reach out.</p>
+      <a class="contact-email" href="mailto:clipszaf@gmail.com">
+        ✉ clipszaf@gmail.com
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <span>ZAF Development Studio</span> — Built with passion in the Netherlands 🇳🇱</p>
+  </footer>
+
 </body>
 </html>
