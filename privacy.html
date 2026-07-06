@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — ZAF Development Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #06060f;
+      --surface: #0d0d1f;
+      --border:  #1a1a3a;
+      --cyan:    #00e5ff;
+      --purple:  #bf00ff;
+      --text:    #e8e8f0;
+      --muted:   #7070a0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      line-height: 1.8;
+      padding: 60px 24px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 40px;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover { opacity: 1; }
+
+    .label {
+      font-family: 'Orbitron', monospace;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .updated {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 48px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    ul {
+      color: var(--muted);
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    ul li { margin-bottom: 8px; }
+
+    a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer span { color: var(--cyan); }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <a class="back-link" href="/">← Back to ZAF Development Studio</a>
+
+    <p class="label">Legal</p>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: July 2026</p>
+
+    <div class="card">
+      <h2>Who We Are</h2>
+      <p>ZAF Development Studio is a solo indie game development studio based in the Netherlands, operated by Zaf. We build mobile games for Android devices.</p>
+      <p>If you have any questions about this privacy policy, you can contact us at: <a href="mailto:clipszaf@gmail.com">clipszaf@gmail.com</a></p>
+    </div>
+
+    <div class="card">
+      <h2>What Data We Collect</h2>
+      <p>Our games are designed with privacy in mind. We do not directly collect, store or share any personal data ourselves.</p>
+      <p>However, our games use third-party services that may collect data. These include:</p>
+      <ul>
+        <li><strong style="color: var(--text);">Google AdMob</strong> — used to display advertisements. AdMob may collect device identifiers and usage data to serve relevant ads. See <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.</li>
+        <li><strong style="color: var(--text);">Google Play Games Services</strong> — used for leaderboards and achievements. This requires a Google account and is subject to <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.</li>
+        <li><strong style="color: var(--text);">Flutter & Flame</strong> — the framework used to build our games. No personal data is collected by the framework itself.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Advertising</h2>
+      <p>Our games may display ads provided by Google AdMob. These ads may be personalised based on your interests and device information. You can opt out of personalised advertising in your device settings.</p>
+      <p>We use AdMob's standard ad units. We do not share any additional personal data with advertisers beyond what AdMob collects as part of its standard service.</p>
+    </div>
+
+    <div class="card">
+      <h2>Children's Privacy</h2>
+      <p>Our games are not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us so we can take appropriate action.</p>
+    </div>
+
+    <div class="card">
+      <h2>Data Retention</h2>
+      <p>Since we do not directly collect personal data, we do not retain any personal data ourselves. Any data collected by third-party services such as Google AdMob is subject to their own retention policies.</p>
+    </div>
+
+    <div class="card">
+      <h2>Your Rights</h2>
+      <p>Depending on your location, you may have rights regarding your personal data, including the right to access, correct or delete data held about you. Since we do not directly collect personal data, requests should be directed to the relevant third-party services.</p>
+      <p>For Google services, you can manage your data at <a href="https://myaccount.google.com" target="_blank">myaccount.google.com</a>.</p>
+    </div>
+
+    <div class="card">
+      <h2>Changes to This Policy</h2>
+      <p>We may update this privacy policy from time to time. Any changes will be posted on this page with an updated date. We encourage you to review this policy periodically.</p>
+    </div>
+
+    <div class="card">
+      <h2>Contact</h2>
+      <p>If you have any questions or concerns about this privacy policy, please contact us at:</p>
+      <p><a href="mailto:clipszaf@gmail.com">clipszaf@gmail.com</a></p>
+    </div>
+
+    <footer>
+      <p>© 2026 <span>ZAF Development Studio</span> — Netherlands 🇳🇱</p>
+    </footer>
+
+  </div>
+</body>
+</html>
